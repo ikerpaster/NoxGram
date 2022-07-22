@@ -20,10 +20,14 @@ export default function SignIn() {
     msg: "w-full px-5 mb-12 text-center text-sm",
   };
   return (
-    <div className="w-full h-full  flex justify-center ">
-      <div className=" ">
+    <div
+      className="w-[600px] h-[1457px] pt-[40%]  bg-black/40 overflow-y-hidden
+    md:w-full  md:h-full md:pt-0 md:bg-transparent
+      flex justify-center "
+    >
+      <div className="">
         <Image className="align-center " src={Logo} />
-        <span className="block mt-[-100px] absolute text-font w-full text-center  text-[rgb(255,20,189)] animate-pulse text-xs md:w-[40%] ">
+        <span className="ml-[80px] md:ml-0 block mt-[-100px] absolute text-font w-full text-center  text-[rgb(255,20,189)] animate-pulse text-xs md:w-[40%] ">
           NOXGRAM (Social Media Helps Members to make money)
         </span>
 
