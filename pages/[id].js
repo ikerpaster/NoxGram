@@ -5,7 +5,7 @@ import { modalState } from "../atoms/modalAtom";
 import Modal from "../components/Modal";
 import Sidebar from "../components/Sidebar";
 import Widgets from "../components/Widgets";
-import Post from "../components/Post";
+import Post from "../components/POSTS/Post";
 
 import { ArrowLeftIcon } from "@heroicons/react/solid";
 import Comment from "../components/Comment";

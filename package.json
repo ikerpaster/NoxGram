@@ -10,6 +10,7 @@
     "@heroicons/react": "^1.0.5",
     "@web3auth/web3auth": "^1.1.1",
     "emoji-mart": "^3.0.1",
+    "firebase": "^9.9.1",
     "moment": "^2.29.3",
     "moralis": "^1.9.1",
     "next": "latest",
@@ -19,6 +20,9 @@
     "react-moment": "^1.1.2",
     "react-moralis": "^1.4.0",
     "react-share": "^4.4.0",
+    "react-simple-hook-modal": "^1.1.0",
+    "react-spinners": "^0.13.3",
+    "react-toastify": "^9.0.7",
     "recoil": "^0.5.2",
     "tailwind-scrollbar-hide": "^1.1.7"
   },

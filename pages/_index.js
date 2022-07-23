@@ -1,31 +1,53 @@
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Feed from "../components/Feed";
 import Sidebar from "../components/Sidebar";
 import Widgets from "../components/Widgets";
+import S_INFO from "../components/SETTINGS/S_INFO";
+import { useStateContext } from "../contexts/NoxGram";
 
-import Login from "../components/Login";
-// import Modal from "../components/Modal";
-import { modalState } from "../atoms/modalAtom";
-import { useRecoilState } from "recoil";
-import { useMoralis } from "react-moralis";
 export default function HomePage() {
-  const { authenticate, isAuthenticated } = useMoralis();
+  const {
+    Modal,
+    ModalTransition,
+    openModal,
+    closeModal,
+    user,
+    modTimer,
+    setMODTimer,
+  } = useStateContext();
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMODTimer(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
+  const styles = {
+    main: "bg-black min-h-screen flex max-w-[1500px] mx-auto",
+  };
   return (
     <>
+      {user.attributes.pAccount && (
+        <>
+          {" "}
+          {modTimer && (
+            <Modal isOpen={openModal} transition={ModalTransition.SCALE}>
+              <S_INFO close={closeModal} />
+            </Modal>
+          )}
+        </>
+      )}
+
       <div className="">
         <Head>
           <title>Home / NoxGram</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-
-        <main className="bg-black min-h-screen flex max-w-[1500px] mx-auto">
+        <main className={styles.main}>
           <Sidebar />
           <Feed />
-
           <Widgets />
-
-          {/* {isOpen && <Modal />} */}
         </main>
       </div>
     </>
