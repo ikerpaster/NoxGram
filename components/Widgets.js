@@ -3,14 +3,13 @@ import { SearchIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 
 import { useEffect, useState } from "react";
+import Follow from "./FOLLOWER/Follow";
 function Widgets() {
   const [uInfo, setUinfo] = useState([]);
   const [fo, setFO] = useState("");
   const [active, setActivated] = useState("");
   const [fld, setFld] = useState(false);
   const [fofo, setFofo] = useState("");
-  const imgUser =
-    "https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg";
 
   return (
     <div className="hidden lg:inline ml-8 xl:w-[450px] py-1 space-y-5 ">
@@ -31,71 +30,7 @@ function Widgets() {
       >
         <h4 className="font-bold text-xl px-4">Who to follow</h4>
 
-        <div className="hover:bg-white hover:bg-opacity-[0.03] px-4 py-2 cursor-pointer transition duration-200 ease-out flex items-center">
-          <img
-            src={imgUser}
-            width={50}
-            height={50}
-            objectFit="cover"
-            className="rounded-full"
-          />
-          <div className="ml-4 leading-5 group">
-            <h4 className="font-bold group-hover:underline">iker paster</h4>
-            <h5 className="text-gray-500 text-[15px]"> ikerpaster</h5>
-          </div>
-          <button
-            value=""
-            id=""
-            onClick=""
-            className="ml-auto   bg-white text-black rounded-full font-bold text-sm py-1.5 px-3.5"
-          >
-            Follow
-          </button>
-        </div>
-
-        <div className="hover:bg-white hover:bg-opacity-[0.03] px-4 py-2 cursor-pointer transition duration-200 ease-out flex items-center">
-          <img
-            src={imgUser}
-            width={50}
-            height={50}
-            objectFit="cover"
-            className="rounded-full"
-          />
-          <div className="ml-4 leading-5 group">
-            <h4 className="font-bold group-hover:underline">iker paster</h4>
-            <h5 className="text-gray-500 text-[15px]"> ikerpaster</h5>
-          </div>
-          <button
-            value=""
-            id=""
-            onClick=""
-            className="ml-auto   bg-white text-black rounded-full font-bold text-sm py-1.5 px-3.5"
-          >
-            Follow
-          </button>
-        </div>
-
-        <div className="hover:bg-white hover:bg-opacity-[0.03] px-4 py-2 cursor-pointer transition duration-200 ease-out flex items-center">
-          <img
-            src={imgUser}
-            width={50}
-            height={50}
-            objectFit="cover"
-            className="rounded-full"
-          />
-          <div className="ml-4 leading-5 group">
-            <h4 className="font-bold group-hover:underline">iker paster</h4>
-            <h5 className="text-gray-500 text-[15px]"> ikerpaster</h5>
-          </div>
-          <button
-            value=""
-            id=""
-            onClick=""
-            className="ml-auto   bg-white text-black rounded-full font-bold text-sm py-1.5 px-3.5"
-          >
-            Follow
-          </button>
-        </div>
+        <Follow />
 
         <button className="hover:bg-white hover:bg-opacity-[0.03] px-4 py-3 cursor-pointer transition duration-200 ease-out flex items-center justify-between w-full text-[#1d9bf0] font-light">
           Show more

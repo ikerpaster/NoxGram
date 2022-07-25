@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { modalState } from "../atoms/modalAtom";
-import Modal from "../components/Modal";
+import Modal from "../components/POSTS/MODAL";
 import Sidebar from "../components/Sidebar";
 import Widgets from "../components/Widgets";
 import Post from "../components/POSTS/Post";

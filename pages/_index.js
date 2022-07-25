@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import Feed from "../components/Feed";
+import Feed from "../components/POSTS/Feed";
 import Sidebar from "../components/Sidebar";
 import Widgets from "../components/Widgets";
 import S_INFO from "../components/SETTINGS/S_INFO";
@@ -19,7 +19,7 @@ export default function HomePage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setMODTimer(true);
-    }, 100);
+    }, 7000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -28,7 +28,7 @@ export default function HomePage() {
   };
   return (
     <>
-      {user.attributes.pAccount && (
+      {!user.attributes.pAccount && (
         <>
           {" "}
           {modTimer && (

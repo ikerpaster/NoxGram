@@ -1,8 +1,16 @@
 import { useRecoilState } from "recoil";
-import { modalState, postIdState } from "../atoms/modalAtom";
+import { modalState, postIdState } from "../../atoms/modalAtom";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useState } from "react";
-
+import {
+  onSnapshot,
+  doc,
+  addDoc,
+  collection,
+  serverTimestamp,
+} from "@firebase/firestore";
+import { db } from "../../firebase";
+import { useSession } from "next-auth/react";
 import {
   CalendarIcon,
   ChartBarIcon,
@@ -12,16 +20,40 @@ import {
 } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 import Moment from "react-moment";
-
+import { useStateContext } from "../../contexts/NoxGram";
 function Modal() {
+  const { userid, user, imgUser } = useStateContext();
   const [isOpen, setIsOpen] = useRecoilState(modalState);
   const [postId, setPostId] = useRecoilState(postIdState);
   const [post, setPost] = useState();
   const [comment, setComment] = useState("");
   const router = useRouter();
 
-  const imgUser =
-    "https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg";
+  useEffect(
+    () =>
+      onSnapshot(doc(db, "_Posts", postId), (snapshot) => {
+        setPost(snapshot.data());
+      }),
+    [db]
+  );
+
+  const sendComment = async (e) => {
+    e.preventDefault();
+
+    await addDoc(collection(db, "_Posts", postId, "comments"), {
+      comment: comment,
+      username: "session.user.name",
+      tag: "session.user.tag",
+      userImg: "session.user.image",
+      timestamp: serverTimestamp(),
+    });
+
+    setIsOpen(false);
+    setComment("");
+
+    router.push(`/${postId}`);
+    // router.push(`/`);
+  };
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -62,38 +94,42 @@ function Modal() {
                   <div className="text-[#6e767d] flex gap-x-3 relative">
                     <span className="w-0.5 h-full z-[-1] absolute left-5 top-11 bg-gray-600" />
                     <img
-                      src={imgUser}
+                      src={post?.userImg}
                       alt=""
                       className="h-11 w-11 rounded-full"
                     />
                     <div>
                       <div className="inline-block group">
                         <h4 className="font-bold text-[#d9d9d9] inline-block text-[15px] sm:text-base">
-                          ikerpaster
+                          {post?.username}
                         </h4>
                         <span className="ml-1.5 text-sm sm:text-[15px]">
-                          @ikerpaster
+                          @{post?.tag}{" "}
                         </span>
                       </div>{" "}
                       ·{" "}
                       <span className="hover:underline text-sm sm:text-[15px]">
-                        <Moment fromNow>2 second ago</Moment>
+                        <Moment fromNow>{post?.timestamp?.toDate()}</Moment>
                       </span>
                       <p className="text-[#d9d9d9] text-[15px] sm:text-base">
-                        hahah I love love u
+                        {post?.text}
                       </p>
                     </div>
                   </div>
 
                   <div className="mt-7 flex space-x-3 w-full">
                     <img
-                      src={imgUser}
+                      src={
+                        !user.attributes.userImg
+                          ? imgUser
+                          : user.attributes.userImg
+                      }
                       alt=""
                       className="h-11 w-11 rounded-full"
                     />
                     <div className="flex-grow mt-2">
                       <textarea
-                        value="love love love"
+                        value={comment}
                         onChange={(e) => setComment(e.target.value)}
                         placeholder="Tweet your reply"
                         rows="2"
@@ -121,7 +157,7 @@ function Modal() {
                         <button
                           className="bg-[#1d9bf0] text-white rounded-full px-4 py-1.5 font-bold shadow-md hover:bg-[#1a8cd8] disabled:hover:bg-[#1d9bf0] disabled:opacity-50 disabled:cursor-default"
                           type="submit"
-                          onClick="{sendComment}"
+                          onClick={sendComment}
                           disabled={!comment.trim()}
                         >
                           Reply

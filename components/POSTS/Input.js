@@ -10,6 +10,7 @@ import { db, storage } from "../../firebase";
 import {
   addDoc,
   collection,
+  setDoc,
   doc,
   serverTimestamp,
   updateDoc,
@@ -28,26 +29,27 @@ function Input() {
   const filePickerRef = useRef(null);
   const [showEmojis, setShowEmojis] = useState(false);
 
-  const { user, userLOGO } = useStateContext();
+  const { user, userid, imgUser } = useStateContext();
 
   const sendPost = async () => {
     if (loading) return;
     setLoading(true);
 
-    const docRef = await addDoc(collection(db, "_User"), {
-      id: "`${user.attributes.accounts}`",
-      username: "user.attributes.username",
-      userImg: "userLOGO",
-      text: "input",
+    // collection(db, "posts", id, "comments"),
+    const docRef = await addDoc(collection(db, "_Posts"), {
+      // username: user.attributes.username,
+      // userImg: "userLOGO",
+      userid: userid,
+      text: input,
       timestamp: serverTimestamp(),
     });
 
-    const imageRef = ref(storage, `posts/${docRef.id}/image`);
+    const imageRef = ref(storage, `_Posts/${docRef.id}/image`);
 
     if (selectedFile) {
       await uploadString(imageRef, selectedFile, "data_url").then(async () => {
         const downloadURL = await getDownloadURL(imageRef);
-        await updateDoc(doc(db, "posts", docRef.id), {
+        await updateDoc(doc(db, "_Posts", docRef.id), {
           image: downloadURL,
         });
       });
@@ -85,7 +87,7 @@ function Input() {
       }`}
     >
       <img
-        src="{session.user.image}"
+        src={!user.attributes.userImg ? imgUser : user.attributes.userImg}
         alt=""
         className="h-11 w-11 rounded-full cursor-pointer"
         onClick="{signOut}"

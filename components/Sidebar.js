@@ -28,7 +28,7 @@ import { useMoralis } from "react-moralis";
 import { useStateContext } from "../contexts/NoxGram";
 function Sidebar() {
   // const { logout, Moralis, user } = useMoralis();
-  const { user, logout } = useStateContext();
+  const { user, logout, imgUser } = useStateContext();
   const [openMenuModal, setOpenMenuModal] = useState("hidden");
   const closeModal = () => {
     setOpenMenuModal("hidden");
@@ -55,8 +55,6 @@ text-sm font-thin p-4 "
       </a>
     );
   };
-  const imgUser =
-    "https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg";
 
   return (
     <>
@@ -83,7 +81,7 @@ text-sm font-thin p-4 "
           onClick={logout}
         >
           <img
-            src={imgUser}
+            src={!user.attributes.userImg ? imgUser : user.attributes.userImg}
             alt=""
             className="h-10 w-10 rounded-full xl:mr-2.5"
           />{" "}

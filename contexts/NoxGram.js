@@ -35,6 +35,7 @@ export const StateContextProvider = ({ children }) => {
   const [payableAccount, setPayableAccount] = useState("");
   const [payableAcc, setPayableAcc] = useState("");
   const [modTimer, setMODTimer] = useState(false);
+  // const [_user, set_UserInfo] = useState({});
   const userid = String(user?.attributes?.accounts);
   const fetchBalance = async () => {
     try {
@@ -66,6 +67,16 @@ export const StateContextProvider = ({ children }) => {
   //     console.log(error);
   //   }
   // };
+  // const docRef = doc(db, "_User", userid);
+
+  // useEffect(
+  //   () =>
+  //     onSnapshot(docRef, (snapshot) => {
+  //       set_UserInfo(snapshot.data(), doc.id);
+  //     }),
+  //   []
+  // );
+
   console.log("salama" + String(user?.attributes?.accounts));
   const handleSetInfo = () => {
     if (user) {
@@ -98,7 +109,7 @@ export const StateContextProvider = ({ children }) => {
     }
   };
 
-  const userLOGO =
+  const imgUser =
     "https://static.vecteezy.com/system/resources/thumbnails/000/439/863/small/Basic_Ui__28186_29.jpg";
 
   return (
@@ -130,6 +141,22 @@ export const StateContextProvider = ({ children }) => {
         toast,
         modTimer,
         setMODTimer,
+        userid,
+        imgUser,
+        db,
+        collection,
+        getDocs,
+        addDoc,
+        updateDoc,
+        doc,
+        deleteDoc,
+        setDoc,
+        getDoc,
+        onSnapshot,
+        query,
+        where,
+        useState,
+        useEffect,
       }}
     >
       {children}
